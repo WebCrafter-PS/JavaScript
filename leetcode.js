@@ -33,5 +33,12 @@ var isEmpty = function (obj) {
 // console.log(isEmpty({}));
 
 
-//Palindrome negative number
+//array sort
+var sortBy = function(arr, fn) {
+  arr.sort(function (a,b){
+     return fn(a) - fn(b)
+  })
+  
+  return arr;
+};
 
