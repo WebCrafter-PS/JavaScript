@@ -32,13 +32,48 @@ var isEmpty = function (obj) {
 
 // console.log(isEmpty({}));
 
-
 //array sort
-var sortBy = function(arr, fn) {
-  arr.sort(function (a,b){
-     return fn(a) - fn(b)
-  })
-  
+var sortBy = function (arr, fn) {
+  arr.sort(function (a, b) {
+    return fn(a) - fn(b);
+  });
+
   return arr;
 };
 
+//array last
+Array.prototype.last = function () {
+  console.log(this.at(-1)); //this refers arr
+};
+
+const arr = [1, 2, 3];
+arr.last(); // 3
+
+//invert object
+const originalObj = {
+  name: "John",
+  age: 30,
+  city: "New York",
+};
+
+let newobj = {};
+
+for (let [key, value] of Object.entries(originalObj)) {
+  newobj = { ...newobj, [value]: key }; //adding elements to object
+}
+console.log(newobj);
+
+
+ const validateEmailAddress = (email) => {
+  // Write your code here
+  let pattern = /(@.[a-z].[a-z])/gi;
+
+  if (email == '') {
+    return false;
+  }
+
+ return (pattern.test(email) == true) ? true : false
+   
+};
+
+console.log(validateEmailAddress('test-test@example.com') )
