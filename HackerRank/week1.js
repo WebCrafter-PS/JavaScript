@@ -76,7 +76,6 @@ function lonelyinteger(a) {
   return res;
 }
 let op = lonelyinteger([1, 2, 3, 4, 1, 2, 3]);
-console.log(op);
 
 //frequency
 function countingSort(arr) {
@@ -92,7 +91,7 @@ function countingSort(arr) {
   for (let key in obj) {
     result[key] = obj[key]; //index=0 ->count=2
   }
-  console.log(result);
+  return result;
 }
 countingSort([
   63, 54, 17, 78, 43, 70, 32, 97, 16, 94, 74, 18, 60, 61, 35, 83, 13, 56, 75,
@@ -103,7 +102,42 @@ countingSort([
   82,
 ]);
 
-//panagram - all alphabets - includes(alpha)
+//pangram - all alphabets - includes(alpha)
 function pangrams(s) {
+  const alphabetsArray = "abcdefghijklmnopqrstuvwxyz".split("");
+  const space = " ";
+  const alphabetsArray1 = alphabetsArray.concat(space);
+  let lower = s.toLowerCase();
+  let strArray = lower.split("");
+
+  let result = [];
+  for (let letter of alphabetsArray1) {
+    result.push(strArray.includes(letter));
+  }
+  return result.includes(false) ? "not pangram" : " pangram";
+}
+let res = pangrams(
+  "We promptly judged antique ivory buckles for the next prize"
+);
+
+//permute 2 arrays such that- A[i] + B[i] >= k
+//Permutation is a rearrangement of elements in any order.
+function twoArrays(k, A, B) {
+  //sort array in a way where we can get max elements after SUM
+  A.sort((a, b) => a - b);
+  B.sort((a, b) => b - a);
+  for (let i = 0; i < A.length; i++) {
+    if (A[i] + B[i] < k) {
+      return "NO";
+    }
+  }
+  return "YES";
+}
+let res1 = twoArrays(1, [0, -2], [1, 0]);
+console.log(res1);
+
+//XOR - both t/f ->False, 1t 1f =>True
+function XOR(str1,str2){
 
 }
+XOR('10100','11010')
