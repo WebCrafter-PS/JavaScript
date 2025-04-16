@@ -63,17 +63,31 @@ for (let [key, value] of Object.entries(originalObj)) {
 }
 console.log(newobj);
 
-
- const validateEmailAddress = (email) => {
+const validateEmailAddress = (email) => {
   // Write your code here
   let pattern = /(@.[a-z].[a-z])/gi;
 
-  if (email == '') {
+  if (email == "") {
     return false;
   }
 
- return (pattern.test(email) == true) ? true : false
-   
+  return pattern.test(email) == true ? true : false;
 };
 
-console.log(validateEmailAddress('test-test@example.com') )
+console.log(validateEmailAddress("test-test@example.com"));
+
+//palindrome
+var isPalindrome = function (s) {
+  let pattern = /[a-z0-9]/i;
+  let temp = [];
+  for (let char of s.toLowerCase()) {
+    if (pattern.test(char)) {
+      temp.push(char);
+    }
+  }
+  let str1 = temp.join("");
+  let str2 = temp.reverse().join("");
+  console.log(str1 === str2);
+};
+
+isPalindrome("race a car");
