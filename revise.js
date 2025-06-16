@@ -54,7 +54,7 @@ console.log(
   })
 );
 
-console.log(array.push("god"));
+console.log(array.push(21, "god"));
 console.log(array.unshift("devil"));
 console.log(array);
 console.log(array.pop());
@@ -78,5 +78,90 @@ let arMap = arr.map((cur, index) => {
 });
 console.log(arMap); //returns an array
 
+let arFilter = arr.filter((cur, index) => {
+  return !cur.startsWith("a");
+});
+console.log(arFilter);
 
+let arReduce = arr.reduce(sentence, "");
+function sentence(acc, cur, index) {
+  return (acc += cur);
+}
+console.log(arReduce);
 
+const nestedArr = [1, 2, [3, 4, [5, 6]]];
+console.log(nestedArr.flat(2)); //1 default
+console.log(nestedArr.flat(Infinity));
+
+const na = [
+  { a: "apple", b: ["ball"] },
+  { a: "ant", b: ["bat"] },
+];
+const flatMap = na.flatMap((cur, index) => {
+  return cur.b;
+});
+console.log(flatMap);
+
+//find 1st/last element or index - condition
+const findele = array.find((ele, index) => {
+  return ele > 0;
+});
+console.log(findele);
+
+const findLele = array.findLast((ele, index) => {
+  return ele > 0;
+});
+console.log(findLele);
+
+const findIndex = array.findIndex((cur, index) => cur < 0);
+const findLastIndex = array.findLastIndex((cur, index) => cur < 0);
+console.log(findIndex, findLastIndex);
+
+//some & every
+const nestedArr1 = [1, 2, [3, 4], [5, 6], [7]];
+const some = nestedArr1.some((cur) => cur.length > 1);
+const every = nestedArr1.every((cur) => cur.length > 1);
+console.log(some, every);
+
+//fill
+console.log(Array(8).fill("*"));
+console.log(nestedArr1.fill("fill", 1, 3));
+
+function dnaStrand(dna) {
+  let newstr = "";
+  for (let i = 0; i < dna.length; i++) {
+    if (dna[i] === "A") {
+      newstr += dna[i].replace("A", "T");
+    } else if (dna[i] === "T") {
+      newstr += dna[i].replace("T", "A");
+    } else if (dna[i] === "C") {
+      newstr += dna[i].replace("C", "G");
+    } else if (dna[i] === "G") {
+      newstr += dna[i].replace("G", "C");
+    }
+  }
+
+  return newstr;
+}
+console.log(dnaStrand("ATTGCAG"));
+
+function findOutlier(integers) {
+  //your code here
+  let arr1 = [];
+  let arr2 = [];
+
+  for (let i = 0; i < integers.length; i++) {
+    if (integers[i] % 2 === 0) {
+      arr1.push(integers[i]);
+    } else {
+      arr2.push(integers[i]);
+    }
+  }
+
+  if (arr1.length == 1) {
+    return arr1[0];
+  } else if (arr2.length == 1) {
+    return arr2[0];
+  }
+}
+console.log(findOutlier([0, 4, 2, 7,8]));
