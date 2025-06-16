@@ -164,4 +164,28 @@ function findOutlier(integers) {
     return arr2[0];
   }
 }
-console.log(findOutlier([0, 4, 2, 7,8]));
+console.log(findOutlier([0, 4, 2, 7, 8]));
+
+function printerError(s) {
+  // your code
+  let count = 0;
+  let strlength = s.length;
+  let pattern = /[a-m]/i;
+
+  for (let i = 0; i < strlength; i++) {
+    if (!pattern.test(s[i])) {
+      count += 1;
+    }
+  }
+  return `${count}/${strlength}`;
+}
+
+s = "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz";
+console.log(printerError(s));
+
+function descendingOrder(n){
+  let str =n.toString();
+  let ar = str.split('').map(cur => Number(cur)).sort((a,b)=>b-a).join('')
+  return Number(ar)
+}
+console.log(descendingOrder(1021))
