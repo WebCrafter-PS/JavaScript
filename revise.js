@@ -183,9 +183,130 @@ function printerError(s) {
 s = "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz";
 console.log(printerError(s));
 
-function descendingOrder(n){
-  let str =n.toString();
-  let ar = str.split('').map(cur => Number(cur)).sort((a,b)=>b-a).join('')
-  return Number(ar)
+function descendingOrder(n) {
+  let str = n.toString();
+  let ar = str
+    .split("")
+    .map((cur) => Number(cur))
+    .sort((a, b) => b - a)
+    .join("");
+  return Number(ar);
 }
-console.log(descendingOrder(1021))
+console.log(descendingOrder(1021));
+
+function isIsogram(str1) {
+  let str = str1.toLowerCase();
+  let newa = str
+    .split("")
+    .map((cur) => str.indexOf(cur) === str.lastIndexOf(cur));
+
+  return newa.includes(false) ? false : true;
+}
+console.log(isIsogram("moOse"));
+
+//destructure
+const person = {
+  name: "John Doe",
+  age: 30,
+  city: "New York",
+  contacts: {
+    email: "john@example.com",
+    phone: "123-456-7890",
+    social: {
+      twitter: "@johndoe",
+      linkedin: "john-doe",
+    },
+  },
+  hobbies: ["reading", "cycling", "traveling", "coding"],
+};
+
+//const {} = object
+const { name, age } = person;
+const { hobbies } = person;
+
+const {
+  hobbies: [first, second],
+} = person;
+const [f1, s1] = person.hobbies;
+
+const { twitter, linkedin } = person.contacts.social;
+
+const { city: mycity } = person;
+
+console.log(f1, twitter, mycity);
+
+//array
+const hobby = ["reading", "cycling", "traveling", "coding"];
+const [fi, se, ...rest] = hobby;
+const [fir, , t1] = hobby;
+console.log(se, t1);
+
+//rest & spread
+function add(...num) {
+  //becomes array
+  console.log(num);
+}
+add(1, 2, 3); //arguments
+
+function mul(arr) {
+  console.log(Math.max(...arr)); //becomes arguments
+}
+mul([1, 2, 3, 4]); //array
+
+let ho = [4, 3, 3];
+let he = ["s", "a", "d"];
+
+console.log([ho, he]); //[[4,3,3],["s", "a", "d"]]
+console.log([...ho, ...he]); //[4,3,3,s,a,d] - array-> argument
+
+function solve(st, a, b) {
+  let ar = st.split("");
+  //swap
+  [ar[a], ar[b]] = [ar[b], ar[a]]; //modifies original array
+  return ar.join("");
+}
+console.log(solve("codewars", 1, 5));
+
+function solve1(st, a, b) {
+  let ar = st.split(""); //[c,o,d,e,w,a,r,s]
+  let extract = ar.slice(a, b + 1); //[o,d,e,w,a]
+  let j = extract.join("");
+  let str = extract.reverse().join(""); //awedo
+  console.log(st.replace(j, str)); //odewa -> cawedors
+}
+console.log(solve1("codewars", 1, 5));
+
+function plusOne(digits) {
+  let i = digits.length - 1;
+
+  while (i >= 0) {
+    if (digits[i] < 9) {
+      digits[i]++;
+      return digits;
+    }
+    digits[i] = 0;
+    i--;
+  }
+
+  digits.unshift(1);
+  return digits;
+}
+
+
+console.log(plusOne([9,9]));
+
+function twoSum(nums, target) {
+  let output = [];
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = 0; j < nums.length; j++) {
+      if (i !== j) {
+        if (nums[i] + nums[j] === target) {
+          output = [nums[i], nums[j]];
+        }
+      }
+    }
+  }
+  return output;
+}
+
+console.log(twoSum([2, 7, 11, 15], 18));
