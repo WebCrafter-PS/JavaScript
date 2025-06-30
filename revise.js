@@ -292,8 +292,7 @@ function plusOne(digits) {
   return digits;
 }
 
-
-console.log(plusOne([9,9]));
+console.log(plusOne([9, 9]));
 
 function twoSum(nums, target) {
   let output = [];
@@ -310,3 +309,95 @@ function twoSum(nums, target) {
 }
 
 console.log(twoSum([2, 7, 11, 15], 18));
+
+//function
+console.log(declaration());
+// console.log(expression); Reference error
+
+function declaration() {
+  return "Function declaration";
+}
+
+const expression = function () {
+  return "Function expression";
+};
+
+//function(callback function) - fn passed as argument to another fn
+//pure function
+
+function increment(counter) {
+  counter++;
+  return counter;
+}
+
+console.log(increment(1));
+console.log(increment(1));
+
+//impure function
+let arra = [];
+function double(x) {
+  let a = x * 2;
+  arra.push(a);
+  return arra; //modifies external array(global)
+}
+console.log(double(2));
+
+//HOF
+function applyOperation(a, b, func) {
+  return func(a, b);
+}
+function add(x, y) {
+  return x + y;
+}
+console.log(applyOperation(4, 3, add));
+
+const users = [
+  { firstName: "John", lastName: "Doe", age: 28 },
+  { firstName: "Jane", lastName: "Smith", age: 34 },
+  { firstName: "Emily", lastName: "Clark", age: 22 },
+];
+
+const newuser = users.map((obj) => {
+  return `${obj.firstName} ${obj.lastName} (${age})`;
+});
+console.log(newuser);
+
+const words = ["apple", "ant", "banana", "ball", "cat", "car", "cap"];
+
+const wordObj = words.reduce(alphabets, {});
+
+function alphabets(acc, cur, index) {
+  let objKeys = Object.keys(acc);
+  if (objKeys.length === 0 || !objKeys.includes(cur[0])) {
+    acc[cur[0]] = [cur];
+    return acc; //{a : [apple], b: banana}
+  } else {
+    acc[cur[0]].push(cur); // {a: [apple,ant], }
+    return acc;
+  }
+}
+console.log(wordObj);
+
+//🧩 Problem: Filter Active Admin Users Over 18
+const users1 = [
+  { name: "Alice", role: "admin", isActive: true, age: 25 },
+  { name: "Bob", role: "user", isActive: false, age: 32 },
+  { name: "Charlie", role: "admin", isActive: false, age: 19 },
+  { name: "David", role: "admin", isActive: true, age: 17 },
+  { name: "Eve", role: "user", isActive: true, age: 45 },
+];
+
+const activeAdmin = users1.filter((cur) => {
+  return cur.role === "admin" && cur.isActive && cur.age > 18;
+});
+console.log(activeAdmin);
+
+//filter: active, groups by: role, reduce: total age
+const users2 = [
+  { name: "Alice", role: "admin", isActive: true, age: 25 },
+  { name: "Bob", role: "user", isActive: false, age: 32 },
+  { name: "Charlie", role: "admin", isActive: false, age: 19 },
+  { name: "David", role: "admin", isActive: true, age: 40 },
+  { name: "Eve", role: "user", isActive: true, age: 45 },
+  { name: "Frank", role: "user", isActive: true, age: 21 }
+];

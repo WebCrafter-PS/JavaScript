@@ -32,3 +32,20 @@ function main() {
 }
 const res = main();
 console.log(res);
+
+//IMP : u have write return for all iteraions else ERROR (it's a loop so)
+const words = ["apple", "ant", "banana", "ball", "cat", "car", "cap"];
+
+const wordObj = words.reduce(alphabets, {});
+
+function alphabets(acc, cur, index) {
+  let objKeys = Object.keys(acc);
+  if (objKeys.length === 0 || !objKeys.includes(cur[0])) {
+    acc[cur[0]] = [cur];
+    return acc; //{a : [apple], b: banana}
+  } else {
+    acc[cur[0]].push(cur); // {a: [apple,ant], }
+    return acc;
+  }
+}
+console.log(wordObj);
