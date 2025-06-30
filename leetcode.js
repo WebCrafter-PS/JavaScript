@@ -91,3 +91,15 @@ var isPalindrome = function (s) {
 };
 
 isPalindrome("race a car");
+
+//removeDuplicates
+function removeDuplicates(...arr) {
+  let unique = arr.reduce((acc, cur) => {
+    if (!acc.includes(cur)) {
+      acc.push(cur);
+    }
+    return acc; //always return array out of loop or if condition
+  }, []);
+  return unique;
+}
+console.log(removeDuplicates(1, 1, 2, 3, 3, 4));
