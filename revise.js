@@ -399,5 +399,47 @@ const users2 = [
   { name: "Charlie", role: "admin", isActive: false, age: 19 },
   { name: "David", role: "admin", isActive: true, age: 40 },
   { name: "Eve", role: "user", isActive: true, age: 45 },
-  { name: "Frank", role: "user", isActive: true, age: 21 }
+  { name: "Frank", role: "user", isActive: true, age: 21 },
 ];
+
+let res = users2.filter((user) => user.isActive).reduce(ReducerFunc, {});
+function ReducerFunc(acc, cur) {
+  if (Object.keys(acc).length === 0 || !Object.keys(acc).includes(cur.role)) {
+    acc[cur.role] = cur.age;
+  } else {
+    acc[cur.role] += cur.age;
+  }
+  return acc;
+}
+console.log(res);
+
+//closure - fn within another fn (returns function)
+function outer() {
+  let outer = "out";
+  function inner() {
+    console.log(outer);
+    console.log("inner");
+  }
+  inner();
+}
+outer();
+
+//currying - sequence of func (if u want to change the input partially)
+//closure + return function
+function add(a) {
+  let x = 10;
+  return function (b) {
+    return function (c) {
+      return x + a + b + c;
+    };
+  };
+}
+// console.log(add(1)(2)(3));
+let res1 = add(10);
+let res2 = res1(20);
+let res3 = res2(30);
+
+let res4 = res1(10);
+let res5 = res4(2)
+
+console.log(res5); //10+10+10+2

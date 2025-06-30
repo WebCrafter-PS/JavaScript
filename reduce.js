@@ -33,7 +33,7 @@ function main() {
 const res = main();
 console.log(res);
 
-//IMP : u have write return for all iteraions else ERROR (it's a loop so)
+//IMP : u have to write return for all iteraions else ERROR (it's a loop so)
 const words = ["apple", "ant", "banana", "ball", "cat", "car", "cap"];
 
 const wordObj = words.reduce(alphabets, {});
