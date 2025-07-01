@@ -440,6 +440,70 @@ let res2 = res1(20);
 let res3 = res2(30);
 
 let res4 = res1(10);
-let res5 = res4(2)
+let res5 = res4(2);
 
 console.log(res5); //10+10+10+2
+
+//DOM manipulation - create,append,remove elements
+let p = document.createElement("p");
+p.innerHTML = "para";
+p.className = "para";
+p.style.backgroundColor = "cyan";
+
+// document.body.append(p);
+// document.body.removeChild(p);
+
+//DOM methods to fetch elements - selectors
+//queryselector, all, getelementbyid,classname
+
+let button = document.createElement("button");
+button.className = "btn";
+button.textContent = "Click Me";
+button.style.color = "gray";
+
+//add this button to the page-body
+let div = document.querySelector("#div");
+// div.append(button);
+
+//event listeners
+button.addEventListener("click", () => console.log("button clicked"));
+
+//event propagation - capturing(down), targetting, bubbling(up)- default
+document
+  .getElementById("grandparent")
+  .addEventListener("click", () => console.log("Grand Parent clicked"), false);
+
+document
+  .getElementById("parent")
+  .addEventListener("click", () => console.log("Parent clicked"), false);
+
+document.getElementById("child").addEventListener(
+  "click",
+  (e) => {
+    e.stopPropagation();
+    console.log("child clicked");
+  },
+  false
+);
+
+function solution(string) {
+  for (let i = 0; i < string.length; i++) {
+    if (string[0] !== string[0].toUpperCase()) {
+      if (string[i] === string[i].toUpperCase()) {
+        string[i] += "Hi ";
+        console.log(string);
+      }
+    }
+  }
+}
+solution("camelCase");
+
+//JSON - json string -> js object
+let jsondata = '{"result":true, "count":42}';
+console.log(typeof jsondata); //string
+let jsobj = JSON.parse(jsondata);
+console.log(jsobj); //{result: true, count: 42}
+console.log(typeof jsobj); //object
+
+//js object -> json string
+console.log(JSON.stringify({ x: 5, y: 6 })); // '{"x":5,"y":6}'
