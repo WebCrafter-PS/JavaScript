@@ -1,4 +1,5 @@
 //string methods
+"use strict";
 let string = "a  Hello World!  ";
 
 console.log(string.charAt(0));
@@ -180,7 +181,7 @@ function printerError(s) {
   return `${count}/${strlength}`;
 }
 
-s = "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz";
+let s = "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz";
 console.log(printerError(s));
 
 function descendingOrder(n) {
@@ -496,7 +497,7 @@ function solution(string) {
     }
   }
 }
-solution("camelCase");
+// solution("camelCase");
 
 //JSON - json string -> js object
 let jsondata = '{"result":true, "count":42}';
@@ -507,3 +508,85 @@ console.log(typeof jsobj); //object
 
 //js object -> json string
 console.log(JSON.stringify({ x: 5, y: 6 })); // '{"x":5,"y":6}'
+
+//objects
+let objects = { pen: 1, paper: 2, book: 7 };
+
+//access
+console.log(objects.paper);
+console.log(objects["paper"]);
+//modify
+objects.book = 6;
+//delete
+delete objects.pen;
+console.log(objects);
+
+let person1 = {
+  name: "John",
+  digits: [1, 2, 3, 4],
+  obj: { pen: 1, stone: 8, arr: ["a", "b", "c"] },
+  // func: function () {
+  //   console.log("function in objects are called methods");
+  // },
+};
+
+//object built-in methods - returns array
+console.log(Object.keys(person1));
+console.log(Object.values(person1));
+console.log(Object.entries(person1)); //[name,john][digits,[1,2,3,4]]
+let copyobj = Object.create(person1);
+console.log(copyobj); //prototype
+copyobj.rock = "checking";
+console.log(Object.keys(copyobj).length); //1 only (others in background)
+
+let copy = Object.assign({}, person1);
+console.log(copy);
+
+//shallow copy - nested objects get affected (1 layer)
+//using assign & spread
+let copyPerson = { ...person1 };
+copyPerson.obj.arr = [1, 2, 3];
+console.log(person1);
+
+//deep copy
+let deepCopy = structuredClone(person1);
+deepCopy.obj.arr = "changed value";
+console.log(person1);
+
+//this
+
+console.log(this); //global object
+
+function Test() {
+  console.log(this);
+}
+Test();
+window.Test();
+
+const obj = {
+  a: 1,
+  b: 2,
+  sum: function () {
+    console.log(this); //this refers to whole 'obj'
+  },
+};
+obj.sum();
+
+//method borrow
+const mainObj = {
+  name1: "Honey",
+  greet: function (city) {
+    console.log(`hi ${this.name1}, welcome to ${city}`);
+  },
+};
+const subObj = {
+  name1: "Hamsa",
+};
+mainObj.greet("Mumbai");
+mainObj.greet.call(subObj, "Pune");
+mainObj.greet.apply(subObj,['J&K']);
+let store =mainObj.greet.bind(subObj,'Kerala')
+console.log(store);
+store();
+store();
+
