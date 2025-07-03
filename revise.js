@@ -584,9 +584,31 @@ const subObj = {
 };
 mainObj.greet("Mumbai");
 mainObj.greet.call(subObj, "Pune");
-mainObj.greet.apply(subObj,['J&K']);
-let store =mainObj.greet.bind(subObj,'Kerala')
+mainObj.greet.apply(subObj, ["J&K"]);
+let store = mainObj.greet.bind(subObj, "Kerala");
 console.log(store);
 store();
 store();
+
+function bmi(weight, height) {
+  let bmi = weight / Math.pow(height, 2); //50/(1.8*1.8)
+  switch (true) {
+    case bmi <= 18.5:
+      return "Underweight";
+    case bmi <= 25:
+      return "Normal";
+    case bmi <= 30:
+      return "Overweight";
+    case bmi > 30:
+      return "Obese";
+  }
+}
+console.log(bmi(50, 1.8));
+
+// function isPangram(string) {
+//   let alphabets = "abcdefghijklmnopqrstuvwxyz".split('');
+
+//   console.log(alphabets.includes(string));
+// }
+// isPangram("abcdefghijklmnopqrstuvwxyz");
 
