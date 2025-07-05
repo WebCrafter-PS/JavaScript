@@ -167,3 +167,45 @@ function getMiddle(s) {
     : s.charAt(Math.abs(median));
 }
 console.log(getMiddle("abcdef"));
+
+function domainName(url) {
+  let extract = "";
+  if (url.includes("www")) {
+    let dot = url.indexOf(".");
+    extract = url.slice(dot + 1);
+  } else {
+    let slash = url.indexOf("//");
+    slash === -1 ? (extract = url.slice(0)) : (extract = url.slice(slash + 2));
+  }
+  let secDot = extract.indexOf(".");
+  return extract.slice(0, secDot);
+}
+//extract domain name
+function domainName(url) {
+  url = url.replace("https://", "");
+  url = url.replace("http://", "");
+  url = url.replace("www.", "");
+  return url.split(".")[0];
+}
+
+function accum(s) {
+  let ar = s.split("").map((c, i) => c.repeat(i + 1));
+  let a = ar
+    .map((c) => c[0].toUpperCase() + c.slice(1).toLowerCase())
+    .join("-");
+  console.log(a);
+}
+accum("ZpglnRxqenU");
+
+function duplicateEncode(word) {
+  let arr = word.split("");
+  let unique = arr.filter((c) => arr.indexOf(c) === arr.lastIndexOf(c)).join('');
+  let newstr = "";
+  
+  
+      newstr = word.replaceAll(unique, "(");
+    console.log(newstr);
+
+  // return aa.join("");
+}
+duplicateEncode("recede");

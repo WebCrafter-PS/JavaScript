@@ -612,3 +612,78 @@ console.log(bmi(50, 1.8));
 // }
 // isPangram("abcdefghijklmnopqrstuvwxyz");
 
+//setTimeOut(callback,milisec) - after
+
+function test() {
+  let timer = setTimeout(() => {
+    console.log("after 2 second hi");
+  }, 2000);
+  console.log(timer); //id =1
+
+  //loop 5
+  for (let i = 5; i >= 0; i--) {
+    setTimeout(() => {
+      console.log(i);
+    }, (5 - i) * 1000);
+  }
+  console.log("hi");
+
+  //setInterval - countdown timer
+  let time = 0;
+  let timer1 = setInterval(() => {
+    console.log("displayed every 3 seconds", time);
+    time++;
+
+    //clear timer
+    if (time == 5) {
+      clearInterval(timer1);
+    }
+  }, 3000);
+}
+
+function startTrafficLight() {
+  let stop = 0;
+  let colors = ["red", "yellow", "green"];
+  let trafficTimer = setInterval(() => {
+    if (stop > colors.length - 1) {
+      console.log(colors[stop - colors.length]);
+    } else {
+      console.log(colors[stop]);
+    }
+
+    stop++;
+    if (stop === 5) {
+      clearInterval(trafficTimer);
+    }
+  }, 2000);
+}
+// startTrafficLight();
+
+//promise
+function prom(sec) {
+  return new Promise((resolve, reject) => {
+    if (sec < 1000) {
+      reject("promise rejected");
+    } else {
+      setTimeout(() => resolve("promise resolved"), sec);
+    }
+  });
+}
+prom(3000).then((resolveMsg) => console.log(resolveMsg));
+prom(100)
+  .then((msg) => console.log(msg))
+  .catch((err) => console.log(err))
+  .finally(() => console.log("done"));
+
+//promise with fetch Api
+function promiseFetch() {
+  let request = fetch("https://dummyjson.com/posts");
+
+  request
+    .then((response) => response.json()) //make it promise - json
+    .then((data) => console.log(data.posts)) //data
+    .catch((err) => console.log(err));
+}
+promiseFetch();
+
+
