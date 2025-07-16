@@ -199,13 +199,101 @@ accum("ZpglnRxqenU");
 
 function duplicateEncode(word) {
   let arr = word.split("");
-  let unique = arr.filter((c) => arr.indexOf(c) === arr.lastIndexOf(c)).join('');
+  let unique = arr
+    .filter((c) => arr.indexOf(c) === arr.lastIndexOf(c))
+    .join("");
   let newstr = "";
-  
-  
-      newstr = word.replaceAll(unique, "(");
-    console.log(newstr);
+
+  newstr = word.replaceAll(unique, "(");
+  console.log(newstr);
 
   // return aa.join("");
 }
 duplicateEncode("recede");
+
+function divisors(integer) {
+  let array = [];
+  for (let n = 2; n < integer; n++) {
+    if (integer % n === 0) {
+      array.push(integer / n);
+    }
+  }
+  return array.length ? array : `${integer} is prime`;
+}
+
+function sortByLength(array) {
+  let res = array.sort((a, b) => a.length - b.length);
+  console.log(res);
+}
+sortByLength(["Beg", "Life", "I", "To"]);
+
+var isAnagram = function (test, original) {
+  let or = original.toLowerCase().split("").sort();
+  let res = test
+    .toLowerCase()
+    .split("")
+    .sort()
+    .map((cur, i) => cur === or[i]);
+
+  return or.length !== res.length || res.includes(false) ? false : true;
+};
+console.log(isAnagram("abc", "abcc"));
+
+function solution(number) {
+  let sum = 0;
+  for (let i = 1; i < number; i++) {
+    if (i % 3 === 0 || i % 5 === 0) {
+      sum += i;
+    }
+  }
+  return sum;
+}
+console.log(solution(20));
+
+function toCamelCase(str) {
+  let array = str.split(/[-_ ]/);
+  let first = array[0];
+  let all = array.slice(1).map((cur) => cur[0].toUpperCase() + cur.slice(1));
+  return [first, ...all].join("");
+}
+console.log(toCamelCase("the_stealth_warrior"));
+
+function countBits(n) {
+  let binary = n.toString(2);
+  let ones = binary.split("").filter((cur) => Boolean(Number(cur)));
+  return ones.length;
+}
+countBits(4);
+
+function isValidWalk(walk) {
+  // same directions next to each other count as 1
+  //sum 10
+
+  let res = walk.reduce((acc, cur, i) => {
+    return cur !== walk[i + 1] ? (acc += 1) : acc;
+  }, 0);
+  return res === 10;
+}
+isValidWalk(["n", "s", "n", "s", "n", "s", "n", "s", "n", "n"]);
+
+function isTriangle(a, b, c) {
+  // the sum of any two sides must be greater than the third.
+  // a+b > c     a+c > b        b+c > a
+  if (a <= 0 || b <= 0 || c <= 0) return false;
+  return a + b > c && a + c > b && b + c > a ? true : false;
+}
+console.log(isTriangle(2, 8, 1));
+
+function findMultiples(integer, limit) {
+  let a = [];
+  for (let i = 1; i <= limit; i++) {
+    let mul = i * integer;
+    console.log(mul);
+
+    if (mul <= limit) {
+      a.push(mul);
+    }
+  }
+  return a;
+}
+findMultiples(1, 2);
