@@ -365,7 +365,7 @@ capitals("liVeLLY");
 
 function correct(string) {
   //S-5, O-0, I-1
-  let a=string;
+  let a = string;
   let str = string.split("").map((cur) => {
     if (cur === 5) {
       a.replace(cur, "S");
@@ -378,3 +378,150 @@ function correct(string) {
   console.log(str);
 }
 correct("L0ND0N");
+
+function isVow(a) {
+  let vowels = "aeiou";
+  let vowelArray = vowels.split("").map((_, i) => vowels.charCodeAt(i));
+  let res = a.map((cur) => {
+    if (vowelArray.includes(cur)) {
+      return vowels.charAt(vowelArray.indexOf(cur)); //cur=101,
+    } else {
+      return cur;
+    }
+  });
+  console.log(res);
+}
+isVow([101, 121, 110, 113, 113, 103, 121, 121, 101, 117, 103]);
+
+function count1(string) {
+  return string.split("").reduce((acc, cur) => {
+    acc[cur] = (acc[cur] || 0) + 1;
+    return acc;
+  }, {});
+}
+console.log(count1("abca"));
+
+function Bus(busStops) {
+  //step1: acc = 0   cur = [10,0]
+  //acc = cur[0] -cur[1]          -- acc = 10
+  //step2: acc=10  cur=[3,5]
+  //acc += cur[0] - cur[1]        -- acc = 8
+  //step3: acc=8  cur=[5,8]
+  //acc = 8+5-8                   -- acc = 5
+  //we can modify -> acc += cur[0] -cur[1]
+
+  let people = busStops.reduce((acc, cur) => (acc += cur[0] - cur[1]), 0);
+  console.log(people);
+}
+Bus([
+  [10, 0],
+  [3, 5],
+  [5, 8],
+]);
+
+function modifyMultiply(str, loc, num) {
+  //array[loc].repeat(num) - abc-abc-abc
+  let word = str.split(" ")[loc];
+  let repeatwithhyphen = (word + "-").repeat(num);
+
+  console.log(repeatwithhyphen.slice(0, repeatwithhyphen.length - 1));
+}
+modifyMultiply("This is a string", 3, 5);
+
+let vowels1 = {
+  a: 1,
+  e: 2,
+  i: 3,
+  o: 4,
+  u: 5,
+};
+function encode(string) {
+  let arr = string.split("").map((cur) => {
+    if (Object.keys(vowels1).includes(cur)) {
+      //[a,e,i,o,u] includes 'h'
+      return vowels1[cur];
+    } else {
+      return cur;
+    }
+  });
+  console.log(arr);
+}
+encode("hello");
+function decode(string) {
+  let res = string
+    .split("") //[h,2,l,l,4]
+    .map((cur) =>
+      Object.values(vowels1).includes(Number(cur)) // [1,2,3,4,5].includes('2')XXXX
+        ? Object.keys(vowels1).find((c) => vowels1[c] === Number(cur)) //[a,e,i,o,u] FIND 2 === vowels1[e]
+        : cur
+    );
+  console.log(res);
+}
+decode("h2ll4");
+
+// function points(games) {
+//   let total = games.reduce((acc, cur) => {
+//     if (cur[0] > cur[2]) {
+//       acc += 3;
+//     } else if (cur[0] === cur[2]) {
+//       acc += 1;
+//     }
+//     return acc;
+//   }, 0);
+//   console.log(total);
+// }
+function points(games) {
+  let total = games.reduce((acc, cur) => {
+    return cur[0] == cur[2] ? (acc += 1) : cur[0] > cur[2] ? (acc += 3) : acc;
+  }, 0);
+  console.log(total);
+}
+points(["1:0", "2:0", "3:0", "4:0", "2:1", "1:3", "1:4", "2:3", "2:4", "3:4"]);
+
+function uniqueInOrder(iterable) {
+  //iterable can be string or array - use [...]
+  let unique = [...iterable].filter((cur, i) => cur !== iterable[i - 1]);
+  console.log(unique);
+}
+uniqueInOrder("AAAABBBCCDAABBB");
+
+//use 1 REDUCE
+function longestConsec(strarr, k) {
+  if (k <= 0 || k > strarr.length) return "";
+  let res = strarr.reduce((acc, _, i) => {
+    //acc =[] i=0 k=3
+    if (k <= strarr.length) {
+      acc.push(strarr.slice(i, i + k).join("")); //acc=['itwkixo']
+    }
+    return acc;
+  }, []);
+  let findlongest = res.reduce((acc, cur) => {
+    return acc.length > cur.length ? acc : cur;
+  });
+  console.log(findlongest);
+}
+longestConsec(["it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz"], 3);
+
+function solution1(string) {
+  let camelcase = string
+    .split("")
+    .map((cur, i) => (cur.toUpperCase() === cur ? " " + cur : cur))
+    .join("");
+  console.log(camelcase);
+}
+solution1("camelCasingTest");
+
+function sortArray(array) {
+  let odd = array.filter((cur) => cur % 2 !== 0).sort((a, b) => a - b); //[1,3,5]
+  let evenIndex = array.reduce((acc, cur, i) => {
+    if (cur % 2 === 0) {
+      acc.push(i);
+    }
+    return acc; //2,3,5
+  }, []);
+  evenIndex.forEach((cur) => { 
+    odd.splice(cur, 0, array[cur]); 
+  });
+  console.log(odd);
+}
+sortArray([5, 3, 2, 8, 1, 4]); //[1,3,2,8,5,4]
