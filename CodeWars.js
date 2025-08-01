@@ -297,3 +297,84 @@ function findMultiples(integer, limit) {
   return a;
 }
 findMultiples(1, 2);
+
+function longestConsec(strarr, k) {
+  //f+s ,s+t, t+f    length
+  let concat = strarr.map((cur, i) => {
+    if (strarr[i + 1]) {
+      return cur + strarr[i + 1];
+    }
+  });
+  let findlen = concat.reduce((acc, cur) => {
+    if (cur.length > acc) {
+      acc = cur;
+      return acc;
+    }
+    return acc;
+  }, 0);
+
+  console.log(findlen);
+}
+// longestConsec(["zone", "abigail", "theta", "form", "libe", "zas"], 2);
+
+function countPositivesSumNegatives(input) {
+  let twosums = input.reduce((acc, cur) => {
+    let sum = [];
+    if (cur > 0) {
+      acc += cur;
+    } else {
+      acc += cur;
+    }
+    return acc;
+  }, 0);
+  console.log(twosums);
+}
+countPositivesSumNegatives([1, 2, 3, -1, -3, -6, 7, -2]);
+
+function powersOfTwo(n) {
+  let array = [];
+  for (let i = 0; i <= n; i++) {
+    let a = Math.pow(2, i);
+    array.push(a);
+  }
+  return array;
+}
+powersOfTwo(0);
+
+var powersOfTwo1 = (n) =>
+  Array.from({ length: n + 1 }, (_, i) => Math.pow(2, i));
+
+function order(words) {
+  //incomplete
+  let findNumber = words.split(" ").map((cur) => cur.split(""));
+  // .find((ele,i) => )); //[[i,s,2], [t,h,i,1,s]]
+  console.log(findNumber);
+}
+order("is2 Thi1s T4est 3a");
+
+var capitals = function (word) {
+  let index = [];
+  word.split("").forEach((cur, i) => {
+    if (cur === cur.toUpperCase()) {
+      index.push(i);
+    }
+  });
+  console.log(index);
+};
+capitals("liVeLLY");
+
+function correct(string) {
+  //S-5, O-0, I-1
+  let a=string;
+  let str = string.split("").map((cur) => {
+    if (cur === 5) {
+      a.replace(cur, "S");
+    } else if (cur === 0) {
+      a.replace(cur, "O");
+    } else if (cur === 1) {
+      a.replace(cur, "I");
+    }
+  });
+  console.log(str);
+}
+correct("L0ND0N");
