@@ -519,9 +519,79 @@ function sortArray(array) {
     }
     return acc; //2,3,5
   }, []);
-  evenIndex.forEach((cur) => { 
-    odd.splice(cur, 0, array[cur]); 
+  evenIndex.forEach((cur) => {
+    odd.splice(cur, 0, array[cur]);
   });
   console.log(odd);
 }
 sortArray([5, 3, 2, 8, 1, 4]); //[1,3,2,8,5,4]
+
+function rot13(message) {
+  //f->s = 13  s->f = -13
+  let alphabets = "abcdefghijklmnopqrstuvwxyz";
+  let rot13 = message.split("").map((cur, i) => {
+    if (/[a-z]/gi.test(cur)) {
+      let index = alphabets.indexOf(cur.toLowerCase());
+      if (cur === cur.toLowerCase()) {
+        return index < 13
+          ? alphabets.charAt(index + 13)
+          : alphabets.charAt(index - 13);
+      } else {
+        return index < 13
+          ? alphabets.charAt(index + 13).toUpperCase()
+          : alphabets.charAt(index - 13).toUpperCase();
+      }
+    } else {
+      return cur;
+    }
+  });
+
+  console.log(rot13);
+}
+rot13("test1@T");
+
+function encrypt(text, n) {
+  if (n <= 0 || !text) return text;
+  let shift = text;
+  for (let i = 0; i < n; i++) {
+    shift = shift
+      .split("")
+      .reduce(
+        (acc, cur, index) => {
+          index % 2 === 0 ? (acc[1] += cur) : (acc[0] += cur);
+          return acc;
+        },
+        ["", ""]
+      )
+      .join("");
+  }
+  console.log(shift);
+}
+encrypt("This is a test!", 1);
+
+function decrypt(encryptedText, n) {}
+decrypt("hsi  etTi sats!", 1);
+
+function roundToNext5(n) {
+  if (n % 5 === 0) return n;
+  for (let i = 0; ; i++) {
+    if ((i + n) % 5 === 0) {
+      return i + n;
+    }
+  }
+}
+console.log(roundToNext5(2));
+
+function rowSumOddNumbers(n) {
+  let nums = [];
+  for (let i = 1; ; i += 2) {
+    //n=2, i=1, 2*1+1=3 2*1+3=5
+    if (nums.length < n) {
+      nums.push(n * (n - 1) + i);
+    } else {
+      break;
+    }
+  }
+  return nums;
+}
+console.log(rowSumOddNumbers(2));
