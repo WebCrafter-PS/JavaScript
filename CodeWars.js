@@ -99,17 +99,23 @@ towerBuilder(3);
 
 function high(x) {
   let alpha = "abcdefghijklmnopqrstuvwxyz".split("");
-
-  let sum = [];
-
-  let words = x.split(" ").map((cur) => cur.split(""));
-  for (let i = 0; i < words.length; i++) {
-    for (let j = 0; j < words[i].length; j++) {
-      //[m,a,n]
-      sum.push(words[j]);
-    }
-  }
-  console.log(sum);
+  let wordsArr = x.split(" ");
+  let wordSum = wordsArr.map(
+    (
+      cur //cur = ['m','a','n']
+    ) =>
+      cur.split("").reduce(
+        (a, c) => {
+          //a=[0] c = 'm', a = [13] -> [13+0+12]->[25]
+          a[0] += alpha.indexOf(c) + 1;
+          return a; //[28] [9]
+        },
+        [0]
+      )
+  );
+  let flattenArray = wordSum.flat();
+  let highestsumIndex = flattenArray.indexOf(Math.max(...flattenArray));
+  console.log(wordsArr[highestsumIndex]);
 }
 high("man i need a taxi up to ubud");
 
@@ -364,18 +370,12 @@ var capitals = function (word) {
 capitals("liVeLLY");
 
 function correct(string) {
-  //S-5, O-0, I-1
-  let a = string;
-  let str = string.split("").map((cur) => {
-    if (cur === 5) {
-      a.replace(cur, "S");
-    } else if (cur === 0) {
-      a.replace(cur, "O");
-    } else if (cur === 1) {
-      a.replace(cur, "I");
-    }
-  });
-  console.log(str);
+  return string
+    .split("")
+    .map((cur) =>
+      cur === "0" ? "O" : cur === "5" ? "S" : cur === "1" ? "I" : cur
+    )
+    .join("");
 }
 correct("L0ND0N");
 
@@ -595,3 +595,124 @@ function rowSumOddNumbers(n) {
   return nums;
 }
 console.log(rowSumOddNumbers(2));
+
+function sumMul(n, m) {
+  //your idea here
+  if (m > 0 && n > 0) {
+    let sum = 0;
+    for (let i = n; i < m; i += n) {
+      sum += i;
+    }
+    return sum;
+  } else {
+    return "INVALID";
+  }
+}
+console.log(sumMul(2, 9));
+
+function whatday(num) {
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  return num <= 0 || num > 7
+    ? "Wrong, please enter a number between 1 and 7"
+    : daysOfWeek[num - 1];
+}
+console.log(whatday(10));
+
+function reverseLetter(str) {
+  let res = str.replace(/[^a-z]/g, "");
+  console.log(res);
+}
+reverseLetter("11krishan");
+
+function sumDigits(number) {
+  let pnumber = Math.abs(number);
+  let sum = 0;
+  while (pnumber > 0) {
+    sum += pnumber % 10; //last digit  - 0
+    pnumber = Math.floor(pnumber / 10); //number=1
+  }
+  console.log(sum);
+  return sum;
+}
+sumDigits(1012);
+
+//return the total number of smiling faces in the array
+function countSmileys(arr) {
+  let sum = arr.reduce((acc, cur) => {
+    if (cur.includes(")") || cur.includes("D")) {
+      //can write in 1 if using &&
+      if (cur.includes(":") || cur.includes(";")) {
+        if (
+          (cur.includes("-") && !cur.includes("~")) ||
+          (!cur.includes("-") && cur.includes("~")) ||
+          cur.length === 2
+        ) {
+          if (cur.length === 2 || cur.length === 3) {
+            acc += 1;
+          }
+        }
+      }
+      return acc;
+    } else {
+      return acc;
+    }
+  }, 0);
+  console.log(sum);
+}
+countSmileys([":---)", "))", ";~~D", ";D"]);
+
+function countSmileys1(arr) {
+  return arr.reduce((acc, cur) => {
+    return (cur.includes(")") || cur.includes("D")) &&
+      (cur.includes(":") || cur.includes(";")) &&
+      (cur.includes("-") || cur.includes("~") || cur.length === 2) &&
+      (cur.length === 2 || cur.length === 3)
+      ? (acc += 1)
+      : acc;
+  }, 0);
+}
+
+function countSmileys2(arr) {
+  return arr.filter((x) => /^[:;][-~]?[)D]$/.test(x)).length;
+}
+
+var maxSequence = function (arr) {
+  if (!arr.length) return 0;
+  let maxOfEle = [];
+  let sum = arr.reduce((acc, cur, index, array) => {
+    let total = 0;
+    let innerSum = array.slice(index).reduce((a, c) => {
+      total += c;
+      return a > total ? a : total; //only maximum sum of each element
+    }, 0);
+    maxOfEle.push(innerSum);
+    return Math.max(...maxOfEle);
+  }, 0);
+  console.log(sum); //6
+};
+//maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4])
+
+function firstNonConsecutive(arr) {
+  let res = arr.find((cur, i) => {
+    return i > 0 && cur - 1 !== arr[i - 1];
+  });
+  console.log(res ?? null); //?? returns rhs if lhs is 'undefined'
+}
+firstNonConsecutive([1, 2, 3, 4, 6, 7, 8]); //cur=3,i=2, arr[1], 2==2
+
+function checkCoupon(enteredCode, correctCode, currentDate, expirationDate) {
+  return (
+    enteredCode === correctCode &&
+    new Date(currentDate) <= new Date(expirationDate)
+  );
+}
+console.log(checkCoupon("123", "123", "September 5, 2014", "September 5, 2014"));
