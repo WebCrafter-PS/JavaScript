@@ -715,4 +715,57 @@ function checkCoupon(enteredCode, correctCode, currentDate, expirationDate) {
     new Date(currentDate) <= new Date(expirationDate)
   );
 }
-console.log(checkCoupon("123", "123", "September 5, 2014", "September 5, 2014"));
+console.log(
+  checkCoupon("123", "123", "September 5, 2014", "September 5, 2014")
+);
+
+function isSortedAndHow(array) {
+  let asc = array.every((cur, i) => {
+    return i === array.length - 1 || cur <= array[i + 1];
+  });
+  if (asc) {
+    return "Ascending";
+  } else {
+    let desc = array.every(
+      (cur, i) => i === array.length - 1 || cur >= array[i + 1]
+    );
+    return desc ? "Descending" : "NO";
+  }
+}
+isSortedAndHow([-12, -1, 0, 1, 2]);
+
+function pigIt(str) {
+  let alphaNum = /^[a-z0-9]+$/i; //string contains only AlphaNum
+  let arr = str.split(" ").map((cur) => {
+    return alphaNum.test(cur) ? cur.slice(1) + cur[0] + "ay" : cur;
+  });
+  console.log(arr);
+}
+pigIt("Pig latin is cool");
+
+class Dinglemouse {
+  constructor() {
+    this.name = this.age = this.sex = 0;
+    this.message = "";
+  }
+  setAge(age) {
+    this.age = age;
+    this.message += `I am ${this.age}.`;
+    return this;
+  }
+  setSex(sex) {
+    this.sex = sex;
+    this.message += `I am ${this.sex == "M" ? "male" : "female"}.`;
+    return this;
+  }
+  setName(name) {
+    this.name = name;
+    this.message += `My name is ${this.name}.`;
+    return this;
+  }
+  hello() {
+    return `Hello. ${this.message}`;
+  }
+}
+let dm = new Dinglemouse().setName("Bob").setSex("M").setAge(27);
+console.log(dm.hello());
