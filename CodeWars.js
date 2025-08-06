@@ -769,3 +769,27 @@ class Dinglemouse {
 }
 let dm = new Dinglemouse().setName("Bob").setSex("M").setAge(27);
 console.log(dm.hello());
+
+function findMissingLetter(array) {
+  let alphabets = "abcdefghijklmnopqrstuvwxyz".split("");
+  // let missingLetter = array.find( //1 != 1
+  //   (cur, i) =>  alphabets.indexOf(cur) + 1 !== alphabets.indexOf(array[i + 1])
+  // );
+
+  let missingLetter = alphabets.find((cur, i) =>
+    array[i] === array[i].toLowerCase()
+      ? array.indexOf(cur) + 1 !== alphabets.indexOf(cur) + 1
+      : array.charCodeAt(i) + 1 !== alphabets.charCodeAt(i) + 1
+  );
+
+  console.log(missingLetter);
+}
+// findMissingLetter(["a", "b", "c", "d", "f"]);
+// findMissingLetter(["O", "Q", "R", "S"]);
+
+function orderWeight(strng) {
+  let array =strng.split(" ").map((cur) => [cur, cur.split("").reduce((a, c) => Number(a) + Number(c))] )
+  array.sort();  //lexographically sort numbers
+  console.log(array.sort((a,b)=>a[1]-b[1]).map((cur)=>cur[0])); 
+}
+orderWeight("2000 10003 1234000 44444444 9999 11 11 22 123");
