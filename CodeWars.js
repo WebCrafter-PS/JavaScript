@@ -771,25 +771,102 @@ let dm = new Dinglemouse().setName("Bob").setSex("M").setAge(27);
 console.log(dm.hello());
 
 function findMissingLetter(array) {
-  let alphabets = "abcdefghijklmnopqrstuvwxyz".split("");
-  // let missingLetter = array.find( //1 != 1
-  //   (cur, i) =>  alphabets.indexOf(cur) + 1 !== alphabets.indexOf(array[i + 1])
-  // );
-
-  let missingLetter = alphabets.find((cur, i) =>
-    array[i] === array[i].toLowerCase()
-      ? array.indexOf(cur) + 1 !== alphabets.indexOf(cur) + 1
-      : array.charCodeAt(i) + 1 !== alphabets.charCodeAt(i) + 1
-  );
-
-  console.log(missingLetter);
+  let missingLetter = array.find((cur, i) => {
+    return (
+      i < array.length - 1 && cur.charCodeAt() + 1 !== array[i + 1].charCodeAt()
+    );
+  });
+  console.log(String.fromCharCode(missingLetter.charCodeAt() + 1));
 }
-// findMissingLetter(["a", "b", "c", "d", "f"]);
-// findMissingLetter(["O", "Q", "R", "S"]);
+findMissingLetter(["a", "b", "c", "d", "f"]);
+findMissingLetter(["O", "Q", "R", "S"]);
 
 function orderWeight(strng) {
-  let array =strng.split(" ").map((cur) => [cur, cur.split("").reduce((a, c) => Number(a) + Number(c))] )
-  array.sort();  //lexographically sort numbers
-  console.log(array.sort((a,b)=>a[1]-b[1]).map((cur)=>cur[0])); 
+  let array = strng
+    .split(" ")
+    .map((cur) => [cur, cur.split("").reduce((a, c) => Number(a) + Number(c))]);
+  array.sort(); //lexographically sort numbers
+  console.log(array.sort((a, b) => a[1] - b[1]).map((cur) => cur[0]));
 }
 orderWeight("2000 10003 1234000 44444444 9999 11 11 22 123");
+
+function incrementString(strng) {
+  let endNum = strng
+    .split(/([0-9]+)/)
+    .filter(Boolean)
+    .at(-1);
+
+  let increment = +endNum + 1;
+  console.log(
+    strng.slice(
+      0,
+      strng.length -
+        (endNum.startsWith(0) ? String(increment).length : endNum.length)
+    ) + increment
+  );
+}
+incrementString("fobar0099"); //fobar0100
+incrementString("fobar99"); //0,4
+
+function order(words) {
+  let numArray = words
+    .split(" ")
+    .map((cur) => [cur.split("").find((c) => !isNaN(c)), cur]);
+  let a = numArray
+    .sort((a, b) => a[0] - b[0])
+    .map((cur) => cur[1])
+    .join(" ");
+}
+order("is2 Thi1s T4est 3a");
+
+//Armstrong number - 1^3 + 5^3 + 3^3 = 153
+function narcissistic(value) {
+  let str = value.toString().split("");
+  let val = str.reduce((acc, cur) => {
+    acc += Math.pow(cur, str.length);
+    return acc;
+  }, 0);
+}
+narcissistic(153);
+
+//language code
+function getLocalizedLanguageName(displayLocale, languageCode) {
+  let language = new Intl.DisplayNames(displayLocale, { type: "language" });
+  return language.of(languageCode);
+}
+getLocalizedLanguageName("kn", "en"); //ಇಂಗ್ಲಿಷ್
+
+function scramble(str1, str2) {
+  if (str1.length < str2.length) return false;
+
+  let w = str2.split("").filter((cur) => !str1.includes(cur));
+  if (w.length === 0) {
+  }
+
+  // console.log(w);
+}
+scramble("javvscriptszz", "javascript");
+
+function toWeirdCase(string) {
+  let a = string
+    .split(" ")
+    .map((cur) =>
+      cur.split("").reduce((a, c, i) => {
+        i % 2 === 0 ? (a += c.toUpperCase()) : (a += c.toLowerCase());
+        return a;
+      }, "")
+    )
+    .join(" ");
+}
+// toWeirdCase('This is a test');
+
+function wave(str) {
+  let arr = Array.from(str.replace(/\s/g, ""), (cur, i) => {
+    //['h','e','l','l','o']
+    console.log();
+    
+    // return ups;
+  });
+  console.log(arr);
+}
+wave("hello  world");
