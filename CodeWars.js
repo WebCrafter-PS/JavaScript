@@ -864,9 +864,51 @@ function wave(str) {
   let arr = Array.from(str.replace(/\s/g, ""), (cur, i) => {
     //['h','e','l','l','o']
     console.log();
-    
+
     // return ups;
   });
   console.log(arr);
 }
 wave("hello  world");
+
+//closure - arr value will be remembered by inner function
+function outer(arr) {
+  let globalCopy = [...arr];
+  return function () {
+    console.log("array has", arr);
+    let removeFirst = arr.shift();
+    if (arr.length === 0) {
+      arr = [...globalCopy];
+    }
+    return removeFirst;
+  };
+}
+let o = outer(["a", "b", "c", "d"]); //returns function
+console.log(o()); //a
+console.log(o()); //b
+console.log(o()); //c
+console.log(o()); //d
+console.log(o()); //a
+
+function cakes(recipe, available) {
+  let recipe1 = Object.keys(recipe);
+  let available1 = Object.keys(available);
+  let check = recipe1.filter((cur) => !available1.includes(cur));
+  if (check.length > 0) return 0;
+
+  let divide = recipe1.map((cur) => {
+    let val = available[cur] / recipe[cur];
+    return Math.floor(val);
+  }).reduce((a,c)=> a<c ? a :c )
+  console.log("value", divide);
+}
+let r = { flour: 500, sugar: 200, eggs: 1 };
+let av = { flour: 1200, sugar: 1200, eggs: 5, milk: 200 };
+cakes(r, av);
+
+//OR - check how to use Math.min  and (undefined || 0)
+function cakes1(recipe, available) {
+  return Object.keys(recipe).reduce(function(val, ingredient) {
+    return Math.min(Math.floor(available[ingredient] / recipe[ingredient] || 0), val)
+  }, Infinity)  
+}
